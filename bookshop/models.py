@@ -27,6 +27,7 @@ class Book(models.Model):
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True) #берет информацию ищз базы данных поэтому нужно писть str наименование класса
     genre = models.ManyToManyField(Genre, help_text='Select genres') #хранит несколько эклемпляров моделей, нужно указать моделей какого класса
     price = models.FloatField()
+    image = models.ImageField(upload_to="books/%y/%m/%d", blank=True)
 
     def __str__(self) -> str:
         return self.title
@@ -38,6 +39,17 @@ class Book(models.Model):
 
     def get_url_buy(self):
         return reverse('buy', args=[str(self.id)]) 
+
+    
+    def add_to_cart(self):
+        return reverse('add', args=[str(self.id)])
+
+    def remove_from_cart(self):
+        return reverse('remove', args=[str(self.id)])    
+
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
         
 #создание миграции моделей python3 manage.py makemigrations
 #после нужно провести след команду(для добавления в базу данных) python3 manage.py migrate

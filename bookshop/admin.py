@@ -9,7 +9,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title','description','author', 'amount',  'price')
+    list_display = ('title','description','author', 'amount',  'price', 'image')
     list_filter = ('author', ) #кортеж ставить запятую
       
 

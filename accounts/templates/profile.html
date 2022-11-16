@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load bootstrap %}
+
+{% block body %}
+
+<h1>Edit your profile.</h1>
+    <form method= 'POST' action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form|bootstrap }}
+        {{ profile_form|bootstrap }}
+        <p>
+        <button type="submit" class="btn btn-outline-success">Submit</button></p>
+    </form>
+
+{% endblock %}

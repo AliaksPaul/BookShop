@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block body %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Book</td>
+            <td>Title</td>
+            <td>Author</td>
+            <td>Quantity</td>
+            <td>Price per unit</td>
+            <td>Total price</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart %}
+            <tr>
+                <td>
+                    <img src="{{ item.book.get_image_url }}" class="card-img-top"  style=" height: 120px; width: 70%; display: block;"  data-holder-rendered="true">
+                </td>
+                <td>
+                    {{ item.book.title }}
+                </td>
+                <td>
+                    {{ item.book.author }}
+                </td>
+                <td>
+                    <input type="number" style="width: 45px;" value="{{ item.quantity }}" max="{{ item.book.amount }}" min=1 >
+                </td>
+                <td>
+                    {{ item.price }}
+                </td>
+                <td>
+                    {{ item.total_price }}
+                </td>
+                <td>
+                    <a href="{{ item.book.remove_from_cart  }}" role="button" style="z-index: 1;" >
+                        <img width="20" height="22" src="https://cdn-icons-png.flaticon.com/512/4021/4021663.png">
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        <td><b>Total: </b></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> <b>{{ cart.get_total_price }}</b></td>
+        <td><a href="{{ book.remove_all  }}" role="button" style="color: red;">Delete all</a></td>
+
+    </tbody>
+</table>
+
+{% endblock %}

@@ -28,37 +28,72 @@
                   <li><a href="#" class="text-white">Do not Like on Facebook</a></li>
                   <li><a href="#" class="text-white">Do not write me</a></li>
                 </ul>
+                <b id="timer" class="badge badge-secondary">Session expires in: {{ request.session.get_expiry_age }} seconds</b>
+                <script>
+                  let Timer = document.getElementById("timer");
+                  let SessionTime = {{ request.session.get_expiry_age }};
+                  setInterval(countDown, 1000);
+
+                  function countDown() {
+                    Timer.innerHTML = `Session expires in: ${SessionTime} seconds`;
+                    SessionTime--;
+                  } 
+                </script>
               </div>
             </div>
           </div>
         </div>
         <div class="navbar navbar-dark bg-dark box-shadow">
           <div class="container d-flex justify-content-between">
-            <a href="/shop/catalog" class="navbar-brand d-flex align-items-center">
+            <a href="{% url 'main' %}" class="navbar-brand d-flex align-items-center">
               <strong>BOOK SHOP</strong>
             </a>
-            {% if user.is_authenticated %}
-              <h4 class="navbar-brand d-flex align-items-center">Hello, {{ user.username }}</h4>
+            <div>
+              {% if user.is_authenticated %}
+                {% comment %} <b id="timer" class="badge badge-secondary">Session expires in: {{ request.session.get_expiry_age }} seconds</b>
+                <script>
+                  let Timer = document.getElementById("timer");
+                  let SessionTime = {{ request.session.get_expiry_age }};
+                  setInterval(countDown, 1000);
+
+                  function countDown() {
+                    Timer.innerHTML = `Session expires in: ${SessionTime} seconds`;
+                    SessionTime--;
+                  } 
+                </script> {% endcomment %}
+                <span class="text-white">Hello, {{ user.username }}! </span >
                 <div class="btn-group">
                   <div class="container d-flex justify-content-between">
-                    <a href="/accounts/logout/" role="button" class="btn btn-outline-success">Log out</a>
+                    <a href="/accounts/logout/" role="button" class="btn btn-outline-danger">Log out</a>
                   </div>
-            {% else %}
+                </div>
+              {% else %}
                 <div class="btn-group">
                   <div class="container d-flex justify-content-between">
-                    <a href="/accounts/login/" role="button" class="btn btn-outline-success">Log in</a>
+                    <a  href="/accounts/login/" role="button" class="btn btn-outline-success">Log in</a>
                   </div>
-            {% endif %}
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+                  <div class="container d-flex justify-content-between">
+                    <a href="{% url 'registration' %}" role="button" class="btn btn-outline-warning">Sign in</a>
+                  </div>
+                </div>
+              {% endif %}
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
           </div>
         </div>
+      </div>
+      <div class="container d-flex justify-content-between">
+      <span></span>
+      <span></span>
+      <a href="{% url 'cartView' %}"><b id="timer" class="badge badge-light">Cart: {{cart.get_total_quantity}}<img width="20" height="22" src="https://cdn-icons-png.flaticon.com/512/891/891462.png"></b></a>
+      </div>
     </header>
     <br>
     <div class="container">
-  {% block body %}
-  {% endblock %}</div>
-</body>
+      {% block body %}
+      {% endblock %}
+
+  </body>
 </html>

@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookshop',
+    'accounts',
+    'cart',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +122,16 @@ STATIC_URL = 'static/'
 LOGIN_REDIRECT_URL = '/shop/catalog/'
 LOGOUT_REDIRECT_URL = '/shop/catalog/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+MEDIA_URL = '/source/'
+MEDIA_ROOT  = os.path.join(BASE_DIR, 'source')
+CART_SESSION_ID = 'cart'
+SESSION_COOKIE_AGE = 10000 #в секундах
+LOGOUT_REDIRECT_URL = '/accounts/login'
+# SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
